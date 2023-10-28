@@ -1,11 +1,12 @@
-﻿using HotelPremium.Models.DataAbstraction.Abstraction;
+﻿using HotelPremium.Helpers;
+using HotelPremium.Models.DataAbstraction.Abstraction;
 using HotelPremium.Models.Poco_Classes;
 
 namespace HotelPremium.Models.DataAbstraction.Implementation
 {
     public class HotelRepository : IHotelRepository, IUserFavoriteHotelsRepo
     {
-        private readonly IEnumerable<Hotel> hotels = new List<Hotel>
+        private readonly IEnumerable<Hotel> seedData = new List<Hotel>
         {
             new Hotel { HotelId = 1, Address = "Lisbon, Portugal", AveragePricePerRoom = 50M,
             HotelOfTheMonth = true, isFullyBooked = false, ImageUrl = "",
@@ -33,21 +34,44 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
                 ShortDescription = "Very appealing", Name = "Homely", CategoryId = 3
             }
         };
+
+        public static IEnumerable<Hotel> Hotels { get; private set; }
+
+        private static string DirectoryPath = Path.Combine(Environment.CurrentDirectory, "HotelPremium");
+        private string FilePath = Path.Combine(DirectoryPath, "hotels.json");
         
         public Hotel? Get(int id)
         {
-            Hotel? hotel = hotels.FirstOrDefault(hotel => hotel.HotelId == id);
+            string idString = id.ToString();
+            Hotel? hotel = FileOperations.ReadOne<Hotel>(FilePath, idString);
+            //Hotel? hotel = Hotels.FirstOrDefault(hotel => hotel.HotelId == id);
+
             return hotel;
         }
 
         public IEnumerable<Hotel> GetAll()
         {
-            return hotels;
+            return Hotels;
         }
 
         public IEnumerable<Hotel> GetHotelsOfTheMonth()
         {
-            return hotels.Where(hotel => hotel.HotelOfTheMonth);
+            return Hotels.Where(hotel => hotel.HotelOfTheMonth);
+        }
+
+        public void SeedHotels()
+        {
+            if(!File.Exists(FilePath))
+            {
+                if(!Directory.Exists(DirectoryPath))
+                {
+                    Directory.CreateDirectory(DirectoryPath);
+                }
+
+                FileOperations.PrettyWrite(seedData, FilePath);
+            }
+
+            Hotels = FileOperations.ReadFiles<Hotel>(FilePath);
         }
     }
 }
