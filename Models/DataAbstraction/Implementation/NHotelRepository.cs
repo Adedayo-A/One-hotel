@@ -19,5 +19,10 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public void SeedHotels()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

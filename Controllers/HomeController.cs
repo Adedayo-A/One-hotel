@@ -17,6 +17,8 @@ namespace HotelPremium.Controllers
 
         public IActionResult Index()
         {
+            _hotelRepository.SeedHotels();
+
             var hotelsOfTheMonth = _userFavoriteHotelsRepo.GetHotelsOfTheMonth();
 
             var comment = "I had the time of my life";
