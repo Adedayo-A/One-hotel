@@ -1,0 +1,62 @@
+[
+  {
+    "HotelId": 1,
+    "Name": "Benchmark",
+    "LongDescription": "A serene environment with beaches and Balcony Sky view",
+    "ShortDescription": "Very appealing",
+    "Address": "Lisbon, Portugal",
+    "AveragePricePerRoom": 50,
+    "ImageUrl": "",
+    "HotelOfTheMonth": true,
+    "isFullyBooked": false,
+    "CategoryId": 1
+  },
+  {
+    "HotelId": 2,
+    "Name": "ParisOne",
+    "LongDescription": "A serene environment with beaches and Balcony Sky view",
+    "ShortDescription": "Very appealing",
+    "Address": "Paris, France",
+    "AveragePricePerRoom": 60,
+    "ImageUrl": "",
+    "HotelOfTheMonth": true,
+    "isFullyBooked": false,
+    "CategoryId": 1
+  },
+  {
+    "HotelId": 3,
+    "Name": "Sheraton",
+    "LongDescription": "A serene environment with a nice view of the commercial Lagos",
+    "ShortDescription": "Highy rated",
+    "Address": "Lagos, Nigeria",
+    "AveragePricePerRoom": 55,
+    "ImageUrl": "",
+    "HotelOfTheMonth": true,
+    "isFullyBooked": false,
+    "CategoryId": 1
+  },
+  {
+    "HotelId": 4,
+    "Name": "FamilyPlus",
+    "LongDescription": "A serene environment with beaches and Balcony Sky view",
+    "ShortDescription": "Very appealing",
+    "Address": "Seychelles",
+    "AveragePricePerRoom": 30,
+    "ImageUrl": "",
+    "HotelOfTheMonth": false,
+    "isFullyBooked": true,
+    "CategoryId": 2
+  },
+  {
+    "HotelId": 5,
+    "Name": "Homely",
+    "LongDescription": "A serene environment with beaches and Balcony Sky view",
+    "ShortDescription": "Very appealing",
+    "Address": "Mexico",
+    "AveragePricePerRoom": 20,
+    "ImageUrl": "",
+    "HotelOfTheMonth": false,
+    "isFullyBooked": false,
+    "CategoryId": 3
+  }
+]
