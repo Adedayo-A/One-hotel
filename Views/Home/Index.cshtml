@@ -1,0 +1,44 @@
+﻿@model HotelPremium.Models.Poco_Classes.HotelsOfTheMonthVM
+
+@{
+    ViewBag.Message = "This is an hotel App";
+}
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1> @ViewBag.Message </h1>
+
+        <b>@Model.MostSatisfactoryComment</b>
+
+        @foreach (var hotel in Model.Hotels)
+        {
+            <div class="col">
+                <div class="card pie">
+                    <img src="@hotel.ImageUrl" class="card-img-top" alt="@hotel.Name">
+                    <div class="card-body pie-button">
+                        <h4 class="d-grid">
+                            <a class="btn btn-secondary"
+                           asp-controller="Account"
+                           asp-action="Register"
+                           asp-route-id="@hotel.HotelId"> Book Hotel</a>
+                        </h4>
+
+                        <div class="d-flex justify-content-between mt-2">
+                            <h2 class="text-start">
+                                <a asp-controller="Hotel"
+                               asp-action="Details"
+                               asp-route-id="@hotel.HotelId"
+                               class="pie-link">@hotel.Name</a>
+                            </h2>
+                            <h5 class="text-nowrap">
+                                @hotel.AveragePricePerRoom.ToString("c")
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </main>
+</div>
+
+
