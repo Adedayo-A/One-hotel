@@ -15,6 +15,8 @@ namespace HotelPremium
 
             builder.Services.AddScoped<IHotelRepository, HotelRepository>();
 
+            builder.Services.AddScoped<IAuthentication, UserRepository>();
+
 
             var app = builder.Build();
 
@@ -25,7 +27,13 @@ namespace HotelPremium
 
             app.UseStaticFiles();
 
-            app.MapDefaultControllerRoute();
+           // app.MapDefaultControllerRoute();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.MapControllerRoute(name: "default",
+                pattern: "{controller=User}/{action=Login}");
 
             app.Run();
         }

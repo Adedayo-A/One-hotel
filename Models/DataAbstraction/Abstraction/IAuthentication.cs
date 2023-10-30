@@ -6,6 +6,11 @@ namespace HotelPremium.Models.DataAbstraction.Abstraction
     {
         User Login(string email, string password);
 
-        bool Signup(User user);
+        void Signup(User user);
+
+        User? GetUser(string email);
+
+        IEnumerable<User> Users { get; }
+        
     }
 }

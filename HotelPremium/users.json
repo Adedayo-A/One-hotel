@@ -1,0 +1,18 @@
+[
+  {
+    "Email": "adedy@yh.com",
+    "Password": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
+    "Phone": "0812345678",
+    "FirstName": "Ade",
+    "LastName": "Dayo",
+    "Address": "Lagos, Nigeria"
+  },
+  {
+    "Email": "johndoe@yh.com",
+    "Password": "8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414",
+    "Phone": "012345678",
+    "FirstName": "John",
+    "LastName": "Doe",
+    "Address": "Lagos, Nigeria"
+  }
+]

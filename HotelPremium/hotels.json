@@ -6,7 +6,7 @@
     "ShortDescription": "Very appealing",
     "Address": "Lisbon, Portugal",
     "AveragePricePerRoom": 50,
-    "ImageUrl": "",
+    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221502/download1.jpg",
     "HotelOfTheMonth": true,
     "isFullyBooked": false,
     "CategoryId": 1
@@ -18,7 +18,7 @@
     "ShortDescription": "Very appealing",
     "Address": "Paris, France",
     "AveragePricePerRoom": 60,
-    "ImageUrl": "",
+    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221376/download3.jpg",
     "HotelOfTheMonth": true,
     "isFullyBooked": false,
     "CategoryId": 1
@@ -30,7 +30,7 @@
     "ShortDescription": "Highy rated",
     "Address": "Lagos, Nigeria",
     "AveragePricePerRoom": 55,
-    "ImageUrl": "",
+    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221376/download3.jpg",
     "HotelOfTheMonth": true,
     "isFullyBooked": false,
     "CategoryId": 1
@@ -42,7 +42,7 @@
     "ShortDescription": "Very appealing",
     "Address": "Seychelles",
     "AveragePricePerRoom": 30,
-    "ImageUrl": "",
+    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221399/download2.jpg",
     "HotelOfTheMonth": false,
     "isFullyBooked": true,
     "CategoryId": 2
@@ -54,7 +54,7 @@
     "ShortDescription": "Very appealing",
     "Address": "Mexico",
     "AveragePricePerRoom": 20,
-    "ImageUrl": "",
+    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221502/download1.jpg",
     "HotelOfTheMonth": false,
     "isFullyBooked": false,
     "CategoryId": 3

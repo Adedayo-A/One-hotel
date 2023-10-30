@@ -22,7 +22,7 @@ namespace HotelPremium.Helpers
             {
                 WriteIndented = true
             };
-            string jsonString = JsonSerializer.Serialize(obj, options);
+            string jsonString = JsonSerializer.Serialize(obj, options); //mvcore/hotelpremium/users.json
             File.WriteAllText(fileName, jsonString);
         }
 
@@ -33,6 +33,11 @@ namespace HotelPremium.Helpers
             string[] arrayOfEachLines = File.ReadAllLines(fileName);
             string jsonTextBigString = File.ReadAllText(fileName);
 
+            if(jsonTextBigString.Length == 0 || arrayOfEachLines.Length == 0)
+            {
+                return list = new List<T>();
+            }
+
             var options = new JsonSerializerOptions(_options)
             {
                 WriteIndented = true,
@@ -41,6 +46,17 @@ namespace HotelPremium.Helpers
             list = JsonSerializer.Deserialize<List<T>>(jsonTextBigString);
 
             return list;
+        }
+
+        public static void AppendElement<T>(object obj, string fileName)
+        {
+            var options = new JsonSerializerOptions(_options)
+            {
+                WriteIndented = true
+            };
+            string jsonString = JsonSerializer.Serialize(obj, options);
+
+            File.AppendAllText(fileName, jsonString);
         }
 
         public static T ReadOne<T>(string fileName, string id)
