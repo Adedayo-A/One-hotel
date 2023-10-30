@@ -1,5 +1,6 @@
 ﻿using HotelPremium.Models.DataAbstraction.Abstraction;
 using HotelPremium.Models.Poco_Classes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelPremium.Controllers

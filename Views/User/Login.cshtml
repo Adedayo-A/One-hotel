@@ -1,0 +1,47 @@
+﻿@model HotelPremium.Models.Poco_Classes.LoginVM
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h5 class="text-uppercase text-center">Registration Form</h5>
+            </div>
+            <div class="card-body">
+
+                <form asp-action="Login">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <input type="submit" value="Login" class="btn btn-sm btn-success text-uppercase rounded-0" />
+               
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2 mx-auto">
+        <h4 class="d-grid">
+            <a class="btn btn-secondary"
+               asp-controller="User"
+               asp-action="Signup"> Don't have an account? Register here </a>
+        </h4>
+    </div>
+</div>
+                    <

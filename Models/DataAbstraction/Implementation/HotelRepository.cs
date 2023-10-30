@@ -35,7 +35,7 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
             }
         };
 
-        public static IEnumerable<Hotel> Hotels { get; private set; }
+        public static IEnumerable<Hotel> _Hotels { get; private set; }
 
         private static string DirectoryPath = Path.Combine(Environment.CurrentDirectory, "HotelPremium");
         private string FilePath = Path.Combine(DirectoryPath, "hotels.json");
@@ -49,9 +49,10 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
             return hotel;
         }
 
-        public IEnumerable<Hotel> GetAll()
+        public IEnumerable<Hotel> Hotels
         {
-            return Hotels;
+            get { _Hotels = FileOperations.ReadFiles<Hotel>(FilePath);
+                return _Hotels; }
         }
 
         public IEnumerable<Hotel> GetHotelsOfTheMonth()
@@ -70,8 +71,6 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
 
                 FileOperations.PrettyWrite(seedData, FilePath);
             }
-
-            Hotels = FileOperations.ReadFiles<Hotel>(FilePath);
         }
     }
 }
