@@ -11,7 +11,7 @@ namespace HotelPremium.Models.Poco_Classes
     ErrorMessage = "The email address is not entered in a correct format")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please provide a password")]
         public string Password { get; set; }
         
         [Required(ErrorMessage = "Please confirm your password")]
@@ -20,7 +20,7 @@ namespace HotelPremium.Models.Poco_Classes
         [Required]
         public string Phone { get; set; }
 
-        [StringLength(50)]
+        [StringLength(10)]
         [Required(ErrorMessage = "Please enter your first name")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }

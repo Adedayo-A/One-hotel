@@ -6,10 +6,15 @@
     "ShortDescription": "Very appealing",
     "Address": "Lisbon, Portugal",
     "AveragePricePerRoom": 50,
-    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221502/download1.jpg",
+    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221376/download3.jpg",
     "HotelOfTheMonth": true,
     "isFullyBooked": false,
-    "CategoryId": 1
+    "CategoryId": 1,
+    "Category": {
+      "CategoryId": 1,
+      "Name": "First Class",
+      "Description": "Hotels ranked ***** with Premium facilities"
+    }
   },
   {
     "HotelId": 2,
@@ -18,10 +23,15 @@
     "ShortDescription": "Very appealing",
     "Address": "Paris, France",
     "AveragePricePerRoom": 60,
-    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221376/download3.jpg",
+    "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221502/download1.jpg",
     "HotelOfTheMonth": true,
     "isFullyBooked": false,
-    "CategoryId": 1
+    "CategoryId": 2,
+    "Category": {
+      "CategoryId": 2,
+      "Name": "Second Class",
+      "Description": "Hotels ranked **** with Great facilities"
+    }
   },
   {
     "HotelId": 3,
@@ -33,7 +43,12 @@
     "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221376/download3.jpg",
     "HotelOfTheMonth": true,
     "isFullyBooked": false,
-    "CategoryId": 1
+    "CategoryId": 3,
+    "Category": {
+      "CategoryId": 3,
+      "Name": "Third Class",
+      "Description": "Hotels ranked *** with Good enough facilities"
+    }
   },
   {
     "HotelId": 4,
@@ -45,7 +60,12 @@
     "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221399/download2.jpg",
     "HotelOfTheMonth": false,
     "isFullyBooked": true,
-    "CategoryId": 2
+    "CategoryId": 2,
+    "Category": {
+      "CategoryId": 2,
+      "Name": "Second Class",
+      "Description": "Hotels ranked **** with Great facilities"
+    }
   },
   {
     "HotelId": 5,
@@ -57,6 +77,11 @@
     "ImageUrl": "https://res.cloudinary.com/ddf91r8gu/image/upload/v1698221502/download1.jpg",
     "HotelOfTheMonth": false,
     "isFullyBooked": false,
-    "CategoryId": 3
+    "CategoryId": 3,
+    "Category": {
+      "CategoryId": 3,
+      "Name": "Third Class",
+      "Description": "Hotels ranked *** with Good enough facilities"
+    }
   }
 ]

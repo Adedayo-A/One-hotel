@@ -1,3 +1,4 @@
+using HotelPremium.Models;
 using HotelPremium.Models.DataAbstraction.Abstraction;
 using HotelPremium.Models.DataAbstraction.Implementation;
 
@@ -17,6 +18,8 @@ namespace HotelPremium
 
             builder.Services.AddScoped<IAuthentication, UserRepository>();
 
+            builder.Services.AddScoped<ICategory, CategoryRepository>();
+
 
             var app = builder.Build();
 
@@ -33,7 +36,9 @@ namespace HotelPremium
             app.UseAuthorization();
 
             app.MapControllerRoute(name: "default",
-                pattern: "{controller=User}/{action=Login}");
+                pattern: "{controller=User}/{action=Login}/{id?}");
+
+            Seeding.SeedData();
 
             app.Run();
         }

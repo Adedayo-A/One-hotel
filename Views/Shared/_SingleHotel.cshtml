@@ -1,0 +1,29 @@
+﻿@model Hotel
+
+<div class="col">
+    <div class="card pie">
+        <img src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name">
+        <div class="card-body pie-button">
+            <h4 class="d-grid">
+                <a class="btn btn-secondary"
+                asp-controller="User"
+                asp-action="Signup"
+                asp-route-id="@Model.HotelId"> Book Hotel</a>
+            </h4>
+
+            <div class="d-flex justify-content-between mt-2">
+                <h2 class="text-start">
+                    <a asp-action="GetOne"
+                        asp-controller="Hotel"
+                       asp-route-hotelid="@Model.HotelId"
+                    class="pie-link">@Model.Name</a>
+                </h2>
+                <h5 class="text-nowrap">
+        @Model.AveragePricePerRoom.ToString("c")
+                </h5>
+                <h5>@Model.Category.Name</h5>
+                <h5>@Model.Category.Description</h5>
+            </div>
+        </div>
+    </div>
+ </div>

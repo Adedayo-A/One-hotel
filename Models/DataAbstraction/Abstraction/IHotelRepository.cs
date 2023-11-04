@@ -6,6 +6,5 @@ namespace HotelPremium.Models.DataAbstraction.Abstraction
     {
         public IEnumerable<Hotel> Hotels { get; }
         public Hotel Get(int id);
-        public void SeedHotels();
     }
 }
