@@ -12,5 +12,6 @@
         public bool HotelOfTheMonth { get; set; }
         public bool isFullyBooked { get; set; }
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

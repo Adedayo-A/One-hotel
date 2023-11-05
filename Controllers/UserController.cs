@@ -7,9 +7,12 @@ namespace HotelPremium.Controllers
     public class UserController : Controller
     {
         private readonly IAuthentication _authentication;
-        public UserController(IAuthentication authentication)
+        private readonly ICategory _category;
+
+        public UserController(IAuthentication authentication, ICategory category)
         {
             _authentication = authentication;
+            _category = category;
         }
         public IActionResult Signup()
         {

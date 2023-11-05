@@ -1,0 +1,17 @@
+[
+  {
+    "CategoryId": 1,
+    "Name": "First Class",
+    "Description": "Hotels ranked ***** with Premium facilities"
+  },
+  {
+    "CategoryId": 2,
+    "Name": "Second Class",
+    "Description": "Hotels ranked **** with Great facilities"
+  },
+  {
+    "CategoryId": 3,
+    "Name": "Third Class",
+    "Description": "Hotels ranked *** with Good enough facilities"
+  }
+]

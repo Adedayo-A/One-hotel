@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Hotel>
+
+<div class="container">
+    <main role="main" class="pb-3">
+
+        @foreach (var hotel in Model)
+        {
+                <partial name="_SingleHotel" model="hotel" />
+        }
+    </main>
+</div>
+
+
