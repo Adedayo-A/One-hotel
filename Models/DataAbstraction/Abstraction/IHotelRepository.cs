@@ -4,7 +4,7 @@ namespace HotelPremium.Models.DataAbstraction.Abstraction
 {
     public interface IHotelRepository
     {
-        public IEnumerable<Hotel> Hotels { get; }
-        public Hotel Get(int id);
+        public IEnumerable<HotelVM> Hotels { get; }
+        public HotelVM Get(int id);
     }
 }

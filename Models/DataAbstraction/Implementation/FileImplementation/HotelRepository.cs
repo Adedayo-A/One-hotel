@@ -2,20 +2,26 @@
 using HotelPremium.Models.DataAbstraction.Abstraction;
 using HotelPremium.Models.Poco_Classes;
 
-namespace HotelPremium.Models.DataAbstraction.Implementation
+namespace HotelPremium.Models.DataAbstraction.Implementation.FileImplementation
 {
     public class HotelRepository : IHotelRepository, IUserFavoriteHotelsRepo
     {
-        public static IEnumerable<Hotel> _Hotels { get; private set; }
+        public static List<HotelVM> _Hotels { get; private set; }
 
         private static string DirectoryPath = Path.Combine(Environment.CurrentDirectory, "HotelPremium");
         private string FilePath = Path.Combine(DirectoryPath, "hotels.json");
-        
-        public Hotel Get(int id)
+
+        private readonly ICategory _Category;
+        private HotelRepository(ICategory category)
+        {
+            _Category = category;
+        }
+
+        public HotelVM Get(int id)
         {
             string idString = id.ToString();
             //Hotel? hotel = FileOperations.ReadOne<Hotel>(FilePath, idString);
-            Hotel? hotel = Hotels.FirstOrDefault(hotel => hotel.HotelId == id);
+            HotelVM? hotel = Hotels.FirstOrDefault(hVM => hVM.Hotel.HotelId == id);
 
             //var category = _Category.GetAll.FirstOrDefault(cat => cat.CategoryId == _hotel.HotelId);
 
@@ -37,15 +43,31 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
             return hotel;
         }
 
-        public IEnumerable<Hotel> Hotels
+        public IEnumerable<HotelVM> Hotels
         {
-            get { _Hotels = FileOperations.ReadFiles<Hotel>(FilePath);
-                return _Hotels; }
+            get
+            {
+                var hotels = FileOperations.ReadFiles<Hotel>(FilePath);
+
+                foreach (Hotel hotel in hotels)
+                {
+                    var category = _Category.GetCategory(hotel.CategoryId);
+                    var obj = new HotelVM()
+                    {
+                        Hotel = hotel,
+                        Category = category
+                    };
+
+                    _Hotels.Add(obj);
+                }
+
+                return _Hotels;
+            }
         }
 
-        public IEnumerable<Hotel> GetHotelsOfTheMonth()
+        public IEnumerable<HotelVM> GetHotelsOfTheMonth()
         {
-            return Hotels.Where(hotel => hotel.HotelOfTheMonth);
+            return Hotels.Where(hVM => hVM.Hotel.HotelOfTheMonth);
         }
     }
 }

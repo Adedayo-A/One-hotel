@@ -1,4 +1,4 @@
-﻿@model HotelsOfTheMonthVM
+﻿@model IEnumerable<HotelVM>
 
 @{
     ViewBag.Message = $"Your vote counts.. These are the Hotels of the month October";
@@ -8,7 +8,7 @@
     <main role="main" class="pb-3">
         <h1> @ViewBag.Message </h1>
 
-        @foreach (var hotel in Model.Hotels)
+        @foreach (var hotel in Model)
         {
             <partial name="_SingleHotel" model="hotel" />
         }
