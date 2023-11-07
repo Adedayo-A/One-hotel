@@ -2,6 +2,11 @@
 {
     public class Hotel
     {
+        public Hotel()
+        {
+            Category = new Category();
+        }
+
         public int HotelId { get; set; }
         public string Name { get; set; }
         public string LongDescription { get; set; }

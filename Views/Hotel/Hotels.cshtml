@@ -1,11 +1,11 @@
-﻿@model IEnumerable<HotelVM>
+﻿@model IEnumerable<Hotel>
 
 <div class="container">
     <main role="main" class="pb-3">
 
-        @foreach (var hotelVM in Model)
+        @foreach (var hotel in Model)
         {
-                <partial name="_SingleHotel" model="hotelVM" />
+                <partial name="_SingleHotel" model="hotel" />
         }
     </main>
 </div>

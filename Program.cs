@@ -17,7 +17,7 @@ namespace HotelPremium
 
             builder.Services.AddScoped<IHotelRepository, AdoNetHotelRepository>();
 
-            builder.Services.AddScoped<IAuthentication, UserRepository>();
+            builder.Services.AddScoped<IAuthentication, AdoNetUserRepository>();
 
             builder.Services.AddScoped<ICategory, CategoryRepository>();
 

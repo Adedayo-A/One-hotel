@@ -5,14 +5,14 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
 {
     public class NHotelRepository : IHotelRepository, IUserFavoriteHotelsRepo
     {
-        public IEnumerable<HotelVM> Hotels => throw new NotImplementedException();
+        public IEnumerable<Hotel> Hotels => throw new NotImplementedException();
 
-        public HotelVM Get(int id)
+        public Hotel Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<HotelVM> GetHotelsOfTheMonth()
+        public IEnumerable<Hotel> GetHotelsOfTheMonth()
         {
             throw new NotImplementedException();
         }

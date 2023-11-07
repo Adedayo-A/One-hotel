@@ -4,6 +4,6 @@ namespace HotelPremium.Models.DataAbstraction.Abstraction
 {
     public interface IUserFavoriteHotelsRepo
     {
-        IEnumerable<HotelVM> GetHotelsOfTheMonth();
+        IEnumerable<Hotel> GetHotelsOfTheMonth();
     }
 }

@@ -8,137 +8,140 @@ namespace HotelPremium.Models.DataAbstraction.Implementation.AdoNet
     public class AdoNetHotelRepository : IHotelRepository, IUserFavoriteHotelsRepo
     {
         private readonly IConfiguration _config;
-        private readonly ICategory _category;
 
-        public AdoNetHotelRepository(IConfiguration config, ICategory category)
+        public AdoNetHotelRepository(IConfiguration config)
         {
             _config = config;
-            _category = category;
         }
-        public IEnumerable<HotelVM> Hotels
+
+        public IEnumerable<Hotel> Hotels
         {
             get
             {
-                //var res = Hotels2;
+                string? conStr = _config.GetConnectionString("HotelPremiumDB");
 
-                string conStr = _config.GetConnectionString("HotelPremiumDB");
-                List<HotelVM> allHotels = new List<HotelVM>();
+                List<Hotel> allHotels = new List<Hotel>();
 
-                string oldQuery = @"Select * from Hotels " +
-                    "join Categories on Hotels.CategoryId = Categories.CategoryId";
+                //Why didn't we use this?
+                //string? oldQuery = @"Select * from Hotels " +
+                //    "join Categories on Hotels.CategoryId = Categories.CategoryId";
 
                 string query = @"select Hotels.Name, Hotels.Address, Hotels.HotelOfTheMonth, Hotels.ImageUrl, Hotels.LongDescription,
-Hotels.AveragePricePerRoom, Hotels.IsFullyBooked, Hotels.ShortDescription,
+Hotels.AveragePricePerRoom, Hotels.IsFullyBooked, Hotels.ShortDescription, Hotels.HotelId,
 Categories.Name as CategoryName, Categories.Description as CategoryDescription
 from HotelPremium.dbo.Hotels 
 join Categories on Hotels.CategoryId = Categories.CategoryId";
+                //FK constraint is just used to prevent actions that would destroy links between tables.
 
-                using (SqlConnection sqlConnection = new SqlConnection(conStr))
+                var dataTable = GetDataFromDataSource(conStr, query);
+
+                if(dataTable.Rows.Count == 0) 
                 {
-                    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                    return allHotels;
+                }
 
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    var hotl = Populate(dataTable, i);
 
-                    DataTable dataTable = new DataTable();
-
-                    sqlDataAdapter.Fill(dataTable);
-
-                    //FK constraint is just used to prevent actions that would destroy links between tables.
-
-                    for (int i = 0; i < dataTable.Rows.Count; i++)
-                    {
-
-                        Hotel htl = new Hotel();
-
-                        htl.Address = dataTable.Rows[i]["Address"].ToString();
-                        htl.Name = dataTable.Rows[i]["Name"].ToString();
-                        htl.ShortDescription = dataTable.Rows[i]["ShortDescription"].ToString();
-                        htl.LongDescription = dataTable.Rows[i]["LongDescription"].ToString();
-                        htl.HotelOfTheMonth = bool.Parse(dataTable.Rows[i]["HotelOfTheMonth"].ToString());
-                        htl.IsFullyBooked = bool.Parse(dataTable.Rows[i]["IsFullyBooked"].ToString());
-                        //hotelVM.Hotel.CategoryId = !int.TryParse(dataTable.Rows[i]["CategoryId"].ToString(), out _) ? 0 : int.Parse(dataTable.Rows[i]["CategoryId"].ToString());
-                        htl.AveragePricePerRoom = decimal.Parse(dataTable.Rows[i]["AveragePricePerRoom"].ToString());
-                        htl.ImageUrl = dataTable.Rows[i]["ImageUrl"].ToString();
-                        htl.Name = dataTable.Rows[i]["Categories.Name"].ToString();
-                        htl.Category.Description = dataTable.Rows[i]["Categories.Description"].ToString();
-                        htl.Hotel.Category.Name = dataTable.Rows[i]["Category"].ToString();
-
-
-                        HotelVM hotelVM = new HotelVM();
-
-                        hotelVM.Hotel.Address = dataTable.Rows[i]["Address"].ToString();
-                        hotelVM.Hotel.Name = dataTable.Rows[i]["Name"].ToString();
-                        hotelVM.Hotel.ShortDescription = dataTable.Rows[i]["ShortDescription"].ToString();
-                        hotelVM.Hotel.LongDescription = dataTable.Rows[i]["LongDescription"].ToString();
-                        hotelVM.Hotel.HotelOfTheMonth = bool.Parse(dataTable.Rows[i]["HotelOfTheMonth"].ToString());
-                        hotelVM.Hotel.IsFullyBooked = bool.Parse(dataTable.Rows[i]["IsFullyBooked"].ToString());
-                        //hotelVM.Hotel.CategoryId = !int.TryParse(dataTable.Rows[i]["CategoryId"].ToString(), out _) ? 0 : int.Parse(dataTable.Rows[i]["CategoryId"].ToString());
-                        hotelVM.Hotel.AveragePricePerRoom = decimal.Parse(dataTable.Rows[i]["AveragePricePerRoom"].ToString());
-                        hotelVM.Hotel.ImageUrl = dataTable.Rows[i]["ImageUrl"].ToString();
-                        hotelVM.Category.Name = dataTable.Rows[i]["Categories.Name"].ToString();
-                        hotelVM.Category.Description = dataTable.Rows[i]["Categories.Description"].ToString();
-                        hotelVM.Hotel.Category.Name = dataTable.Rows[i]["Category"].ToString();
-
-
-                        allHotels.Add(hotelVM);
-                    }
+                    allHotels.Add(hotl);
                 }
                 return allHotels;
             }
         }
 
-        public IEnumerable<HotelVM> Hotels2
+        public Hotel? Get(int id)
         {
-            get
+
+            string? conStr = _config.GetConnectionString("HotelPremiumDB");
+
+            string query = @$"Select Hotels.Name, Hotels.Address, Hotels.HotelOfTheMonth, Hotels.ImageUrl, Hotels.LongDescription,
+Hotels.AveragePricePerRoom, Hotels.IsFullyBooked, Hotels.ShortDescription, Hotels.HotelId,
+Categories.Name as CategoryName, Categories.Description as CategoryDescription
+from HotelPremium.dbo.Hotels 
+join Categories on Hotels.CategoryId = Categories.CategoryId 
+where Hotels.HotelId = {id}";
+
+            var dTable = GetDataFromDataSource(conStr, query);
+
+            if (dTable.Rows.Count == 0)
             {
-                string conStr = _config.GetConnectionString("HotelPremiumDB");
-                List<HotelVM> allHotels = new List<HotelVM>();
+                return null;
+            }
 
-                string query = "Select * from Hotels";
+            var res = Populate(dTable, 0);
 
-                using (SqlConnection sqlConnection = new SqlConnection(conStr))
-                {
-                    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            return res;
+        }
 
-                    DataTable dataTable = new DataTable();
+        public IEnumerable<Hotel> GetHotelsOfTheMonth()
+        {
+            string? conStr = _config.GetConnectionString("HotelPremiumDB");
+            List<Hotel> allHotels = new List<Hotel>();
 
-                    sqlDataAdapter.Fill(dataTable);
+            string query = @$"select Hotels.Name, Hotels.Address, Hotels.HotelOfTheMonth, Hotels.ImageUrl, Hotels.LongDescription,
+Hotels.AveragePricePerRoom, Hotels.IsFullyBooked, Hotels.ShortDescription, Hotels.HotelId,
+Categories.Name as CategoryName, Categories.Description as CategoryDescription
+from HotelPremium.dbo.Hotels 
+join Categories on Hotels.CategoryId = Categories.CategoryId 
+where Hotels.HotelOfTheMonth = 1";
 
-                    for (int i = 0; i < dataTable.Rows.Count; i++)
-                    {
-                        HotelVM hotelVM = new HotelVM();
+            var dTable = GetDataFromDataSource(conStr, query);
 
-                        hotelVM.Hotel.HotelId = int.Parse(dataTable.Rows[i]["Id"].ToString());
-                        hotelVM.Hotel.Address = dataTable.Rows[i]["Address"].ToString();
-                        hotelVM.Hotel.Name = dataTable.Rows[i]["Name"].ToString();
-                        hotelVM.Hotel.ShortDescription = dataTable.Rows[i]["ShortDescription"].ToString();
-                        hotelVM.Hotel.LongDescription = dataTable.Rows[i]["LongDescription"].ToString();
-                        hotelVM.Hotel.HotelOfTheMonth = bool.Parse(dataTable.Rows[i]["HotelOfTheMonth"].ToString());
-                        hotelVM.Hotel.IsFullyBooked = bool.Parse(dataTable.Rows[i]["IsFullyBooked"].ToString());
-                        hotelVM.Hotel.CategoryId = !int.TryParse(dataTable.Rows[i]["CategoryId"].ToString(), out _) ? 0 : int.Parse(dataTable.Rows[i]["CategoryId"].ToString());
-                        hotelVM.Hotel.AveragePricePerRoom = decimal.Parse(dataTable.Rows[i]["AveragePricePerRoom"].ToString());
-                        hotelVM.Hotel.ImageUrl = dataTable.Rows[i]["ImageUrl"].ToString();
-                        hotelVM.Category.Name = dataTable.Rows[i]["Category.Name"].ToString();
-                        hotelVM.Category.Description = dataTable.Rows[i]["Description"].ToString();
-
-                        allHotels.Add(hotelVM);
-                    }
-                }
+            if(dTable.Rows.Count == 0)
+            {
                 return allHotels;
             }
+
+            for (int i = 0; i < dTable.Rows.Count; i++)
+            {
+                var hotl = Populate(dTable, i);
+
+                allHotels.Add(hotl);
+            }
+            return allHotels;
         }
 
-
-
-        public HotelVM Get(int id)
+        private DataTable GetDataFromDataSource(string conString, string query)
         {
-            return Hotels.FirstOrDefault(h => h.Hotel.HotelId == id);
+            DataTable dataTable = new DataTable();
+
+            using (SqlConnection sqlConnection = new SqlConnection(conString))
+            {
+
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                try
+                {
+                    sqlDataAdapter.Fill(dataTable);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            return dataTable;
         }
 
-        public IEnumerable<HotelVM> GetHotelsOfTheMonth()
+        private Hotel Populate(DataTable dataTable, int row)
         {
-            return Hotels.Where(hVM => hVM.Hotel.HotelOfTheMonth);
+            var hotel = new Hotel();
+
+            hotel.Address = dataTable.Rows[row]["Address"].ToString();
+            hotel.Name = dataTable.Rows[row]["Name"].ToString();
+            hotel.ShortDescription = dataTable.Rows[row]["ShortDescription"].ToString();
+            hotel.LongDescription = dataTable.Rows[row]["LongDescription"].ToString();
+            hotel.HotelOfTheMonth = bool.Parse(dataTable.Rows[row]["HotelOfTheMonth"].ToString());
+            hotel.IsFullyBooked = bool.Parse(dataTable.Rows[row]["IsFullyBooked"].ToString());
+            //hotelVM.Hotel.CategoryId = !int.TryParse(dataTable.Rows[i]["CategoryId"].ToString(), out _) ? 0 : int.Parse(dataTable.Rows[i]["CategoryId"].ToString());
+            hotel.AveragePricePerRoom = decimal.Parse(dataTable.Rows[row]["AveragePricePerRoom"].ToString());
+            hotel.ImageUrl = dataTable.Rows[row]["ImageUrl"].ToString();
+            hotel.HotelId = int.Parse(dataTable.Rows[row]["HotelId"].ToString());
+            hotel.Category.Description = dataTable.Rows[row]["CategoryDescription"].ToString();
+            hotel.Category.Name = dataTable.Rows[row]["CategoryName"].ToString();
+
+            return hotel;
         }
     }
 }
