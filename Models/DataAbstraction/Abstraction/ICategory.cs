@@ -6,5 +6,7 @@ namespace HotelPremium.Models.DataAbstraction.Abstraction
     {
         IEnumerable<Category> GetAll { get; }
 
+        Category GetCategory(int id);
+
     }
 }

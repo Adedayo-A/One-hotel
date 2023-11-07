@@ -20,12 +20,12 @@ namespace HotelPremium.Controllers
         {
             var hotelsOfTheMonth = _userFavoriteHotelsRepo.GetHotelsOfTheMonth();
 
-            HotelsOfTheMonthVM hotelsMonthVM = new HotelsOfTheMonthVM
-            {
-                Hotels = hotelsOfTheMonth,
-            };
+            //HotelVM hotelsMonthVM = new HotelVM
+            //{
+            //    Hotels = hotelsOfTheMonth
+            //};
 
-            return View(hotelsMonthVM);
+            return View(hotelsOfTheMonth);
         }
     }
 }

@@ -2,7 +2,7 @@
 using HotelPremium.Models.DataAbstraction.Abstraction;
 using HotelPremium.Models.Poco_Classes;
 
-namespace HotelPremium.Models.DataAbstraction.Implementation
+namespace HotelPremium.Models.DataAbstraction.Implementation.FileImplementation
 {
     public class UserRepository : IAuthentication
     {
@@ -17,7 +17,7 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
         {
             _users = Users.ToList();
 
-            if(_users.Count == null)
+            if (_users.Count == null)
             {
                 return null;
             }
@@ -31,28 +31,28 @@ namespace HotelPremium.Models.DataAbstraction.Implementation
 
         public void Signup(User user)
         {
-            user.Password= PasswordHash.HashPassword(user.Password);
+            user.Password = PasswordHash.HashPassword(user.Password);
             _users = Users.ToList();
             _users.Add(user);
 
             fileOp(_users);
         }
 
-        public IEnumerable<User> Users 
-        { 
-            get 
-            { 
-                if(!File.Exists(FilePath))
+        public IEnumerable<User> Users
+        {
+            get
+            {
+                if (!File.Exists(FilePath))
                 {
-                    if(!Directory.Exists(DirectoryPath))
+                    if (!Directory.Exists(DirectoryPath))
                     {
                         Directory.CreateDirectory(DirectoryPath);
                     }
                 }
                 _users = FileOperations.ReadFiles<User>(FilePath);
-                
+
                 return _users;
-            } 
+            }
         }
 
         private void fileOp(object obj)

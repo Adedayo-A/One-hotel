@@ -1,6 +1,7 @@
 using HotelPremium.Models;
 using HotelPremium.Models.DataAbstraction.Abstraction;
-using HotelPremium.Models.DataAbstraction.Implementation;
+using HotelPremium.Models.DataAbstraction.Implementation.AdoNet;
+using HotelPremium.Models.DataAbstraction.Implementation.FileImplementation;
 
 namespace HotelPremium
 {
@@ -12,11 +13,11 @@ namespace HotelPremium
 
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<IUserFavoriteHotelsRepo, HotelRepository>();
+            builder.Services.AddScoped<IUserFavoriteHotelsRepo, AdoNetHotelRepository>();
 
-            builder.Services.AddScoped<IHotelRepository, HotelRepository>();
+            builder.Services.AddScoped<IHotelRepository, AdoNetHotelRepository>();
 
-            builder.Services.AddScoped<IAuthentication, UserRepository>();
+            builder.Services.AddScoped<IAuthentication, AdoNetUserRepository>();
 
             builder.Services.AddScoped<ICategory, CategoryRepository>();
 
@@ -38,7 +39,9 @@ namespace HotelPremium
             app.MapControllerRoute(name: "default",
                 pattern: "{controller=User}/{action=Login}/{id?}");
 
-            Seeding.SeedData();
+
+            //Seeding.SeedData(); //File JSON
+            SeedDataADONET.SeedData(builder.Configuration);
 
             app.Run();
         }
