@@ -1,11 +1,13 @@
-﻿namespace HotelPremium.Models.Poco_Classes
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HotelPremium.Models.Poco_Classes
 {
     public class Hotel
     {
-        public Hotel()
-        {
-            Category = new Category();
-        }
+        //public Hotel()
+        //{
+        //    Category = new Category();
+        //}
 
         public int HotelId { get; set; }
         public string Name { get; set; }
@@ -17,7 +19,36 @@
         public bool HotelOfTheMonth { get; set; }
         public bool IsFullyBooked { get; set; }
         public int CategoryId { get; set; }
+
+        //Navigation Property NULL .. EMPTY OBJECT
         public Category Category { get; set; }
+    }
+
+    public class Example
+    {
+        public List<int> list { get; set; }
+
+        //public Example()
+        //{
+        //    list = new List<int>();
+        //}
+        public void Ex()
+        {
+
+            list = new List<int> { 1, 2, 3, 4, 5 };
+
+            Hotel hotel = new Hotel
+            {
+                HotelId = 1,
+                Address = "Lagos",
+                Category = new Category
+                {
+                    CategoryId = 1,
+                    Description = "Nice",
+                },
+                
+            };
+        }
     }
 
     //Many to Many relationships

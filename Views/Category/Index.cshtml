@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Category>
+
+<div class="container">
+    <main role="main" class="pb-3">
+
+        @foreach (var category in Model)
+        {
+
+
+            <div class="col">
+                <div class="card pie">
+                    <div class="card-body pie-button">
+                        <h4 class="d-grid">
+                           @category.Name
+                        </h4>
+
+                        <div class="d-flex justify-content-between mt-2">
+                            <h2 class="text-start">
+                               @category.Description
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </main>
+</div>

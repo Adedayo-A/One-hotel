@@ -78,5 +78,10 @@ namespace HotelPremium.Models.DataAbstraction.Implementation.FileImplementation
 
             return user;
         }
+
+        public User? GetNewuser()
+        {
+            throw new NotImplementedException($"{nameof(GetNewuser)} is not implemented");
+        }
     }
 }

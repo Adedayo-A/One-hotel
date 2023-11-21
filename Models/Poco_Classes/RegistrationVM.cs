@@ -17,7 +17,8 @@ namespace HotelPremium.Models.Poco_Classes
         [Required(ErrorMessage = "Please confirm your password")]
         public string ConfirmPassword { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Phone number cannot be null")]
+        [NgTelCode(ErrorMessage = "Number must be in Nigeria tel code - +234")]
         public string Phone { get; set; }
 
         [StringLength(10)]
@@ -25,12 +26,15 @@ namespace HotelPremium.Models.Poco_Classes
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Exceeded Limit")]
         [Required(ErrorMessage = $"{nameof(LastName)} is required" )]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required]
         public string Address { get; set; }
+
+        [Required]
+        public int MyProperty { get; set; }
     }
 }

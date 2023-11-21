@@ -1,5 +1,6 @@
 ﻿using HotelPremium.Models.DataAbstraction.Abstraction;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace HotelPremium.Controllers
 {
@@ -22,6 +23,7 @@ namespace HotelPremium.Controllers
         public IActionResult GetOne(int hotelid)
         {
             var hotel = _hotelRepository.Get(hotelid);
+
             if(hotel == null)
             {
                 return NotFound();
@@ -34,5 +36,6 @@ namespace HotelPremium.Controllers
         {
             return View();
         }
+
     }
 }
