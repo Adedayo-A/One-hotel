@@ -18,11 +18,11 @@ namespace HotelPremium
 
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddExternalServices();
+            builder.Services.AddExternalServicesEFImplementation();
 
             builder.Services.AddDbContext<HotelContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("HotelPremiumDbEf"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("HotelPremiumDbEFM"));
             });
 
             var app = builder.Build();
@@ -42,8 +42,8 @@ namespace HotelPremium
                 var services = scope.ServiceProvider;
 
                 var context = services.GetRequiredService<HotelContext>();
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
+                //context.Database.EnsureDeleted();
+                //context.Database.EnsureCreated();
                 DbInitializerEF.Initialize(context);
             }
 
